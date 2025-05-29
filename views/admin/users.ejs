@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Users</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .action-forms {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+        }
+        .action-forms select {
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <%- include('../partials/header') %>
+    <main>
+        <h2>Manage Users</h2>
+        <% if (success_msg) { %>
+            <div class="alert success"><%= success_msg %></div>
+        <% } %>
+        <% if (error_msg) { %>
+            <div class="alert error"><%= error_msg %></div>
+        <% } %>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Registered Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% users.forEach(user => { %>
+                    <tr>
+                        <td><%= user.name %></td>
+                        <td><%= user.email %></td>
+                        <td><%= user.role %></td>
+                        <td><%= user.date.toLocaleDateString() %></td>
+                        <td class="action-forms">
+                            <form action="/admin/users/changerole/<%= user._id %>" method="POST">
+                                <select name="role" onchange="this.form.submit()">
+                                    <option value="user" <%= user.role === 'user' ? 'selected' : '' %>>User</option>
+                                    <option value="admin" <%= user.role === 'admin' ? 'selected' : '' %>>Admin</option>
+                                </select>
+                            </form>
+                            <% if (user._id.toString() !== req.user._id.toString()) { %> <form action="/admin/users/delete/<%= user._id %>" method="POST" style="display:inline;">
+                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete <%= user.name %>?')">Delete</button>
+                                </form>
+                            <% } %>
+                        </td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </main>
+    <%- include('../partials/footer') %>
+</body>
+</html>

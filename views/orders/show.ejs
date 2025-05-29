@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Details</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <%- include('../partials/header') %>
+    <main>
+        <h2>Order #<%= order._id %> Details</h2>
+        <% if (error_msg) { %>
+            <div class="alert error"><%= error_msg %></div>
+        <% } %>
+
+        <p><strong>Order Date:</strong> <%= order.orderDate.toLocaleDateString() %> <%= order.orderDate.toLocaleTimeString() %></p>
+        <p><strong>Status:</strong> <%= order.status %></p>
+        <p><strong>Total Amount:</strong> $<%= order.totalAmount.toFixed(2) %></p>
+
+        <h3>Items Ordered:</h3>
+        <ul>
+            <% order.items.forEach(item => { %>
+                <li>
+                    <%= item.bike.name %> (Category: <%= item.bike.category %>) <br>
+                    Quantity: <%= item.quantity %> <br>
+                    Price per item at order: $<%= item.priceAtOrder.toFixed(2) %> <br>
+                    Subtotal: $<%= (item.quantity * item.priceAtOrder).toFixed(2) %>
+                </li>
+            <% }); %>
+        </ul>
+
+        <h3>Shipping Address:</h3>
+        <p><%= order.shippingAddress.street %></p>
+        <p><%= order.shippingAddress.city %>, <%= order.shippingAddress.state %> <%= order.shippingAddress.zip %></p>
+        <p><%= order.shippingAddress.country %></p>
+
+        <h3>Payment Details:</h3>
+        <p>Method: <%= order.paymentDetails.method %></p>
+        <p>Status: <%= order.paymentDetails.status %></p>
+        <% if (order.paymentDetails.transactionId) { %>
+            <p>Transaction ID: <%= order.paymentDetails.transactionId %></p>
+        <% } %>
+
+        <a href="/orders" class="btn">Back to My Orders</a>
+    </main>
+    <%- include('../partials/footer') %>
+</body>
+</html>

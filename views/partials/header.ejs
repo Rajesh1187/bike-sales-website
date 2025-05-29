@@ -1,0 +1,17 @@
+<header>
+    <nav>
+        <div class="logo">Bike Sales</div>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/bikes">Bikes</a></li>
+            <% if (user) { %>
+                <li><a href="/dashboard">Dashboard</a></li>
+                <li><a href="/users/logout">Logout</a></li>
+            <% } else { %>
+                <li><a href="/users/login">Login</a></li>
+                <li><a href="/users/register">Register</a></li>
+            <% } %>
+            <li><a href="/cart">Cart</a></li>
+        </ul>
+    </nav>
+</header>

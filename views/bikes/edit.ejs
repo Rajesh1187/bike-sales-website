@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Bike</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <%- include('../partials/header') %>
+    <main>
+        <h2>Edit Bike: <%= bike.name %></h2>
+        <% if (typeof errors != 'undefined') { %>
+            <% errors.forEach(function(error) { %>
+                <div class="alert error"><%= error.msg %></div>
+            <% }); %>
+        <% } %>
+        <form action="/bikes/edit/<%= bike._id %>" method="POST">
+            <div class="form-group">
+                <label for="name">Bike Name</label>
+                <input type="text" id="name" name="name" value="<%= bike.name %>" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea id="description" name="description" rows="5" required><%= bike.description %></textarea>
+            </div>
+            <div class="form-group">
+                <label for="price">Price</label>
+                <input type="number" id="price" name="price" step="0.01" value="<%= bike.price %>" required>
+            </div>
+            <div class="form-group">
+                <label for="category">Category</label>
+                <input type="text" id="category" name="category" value="<%= bike.category %>" required>
+            </div>
+            <div class="form-group">
+                <label for="imageUrl">Image URL</label>
+                <input type="text" id="imageUrl" name="imageUrl" value="<%= bike.imageUrl %>">
+                <small>Provide a direct URL to the bike image.</small>
+            </div>
+            <div class="form-group">
+                <label for="stock">Stock Quantity</label>
+                <input type="number" id="stock" name="stock" value="<%= bike.stock %>" required>
+            </div>
+            <button type="submit" class="btn">Update Bike</button>
+            <a href="/bikes" class="btn btn-danger">Cancel</a>
+        </form>
+    </main>
+    <%- include('../partials/footer') %>
+</body>
+</html>

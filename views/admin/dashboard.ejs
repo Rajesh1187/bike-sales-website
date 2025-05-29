@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .admin-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .stat-card {
+            background-color: #e9f5ff;
+            border: 1px solid #cce5ff;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+        }
+        .stat-card h3 {
+            margin-top: 0;
+            color: #007bff;
+        }
+        .stat-card p {
+            font-size: 2em;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .admin-actions {
+            margin-top: 30px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .admin-actions .btn {
+            padding: 12px 25px;
+        }
+    </style>
+</head>
+<body>
+    <%- include('../partials/header') %>
+    <main>
+        <h2>Admin Dashboard</h2>
+        <% if (success_msg) { %>
+            <div class="alert success"><%= success_msg %></div>
+        <% } %>
+        <% if (error_msg) { %>
+            <div class="alert error"><%= error_msg %></div>
+        <% } %>
+
+        <div class="admin-stats">
+            <div class="stat-card">
+                <h3>Total Users</h3>
+                <p><%= totalUsers %></p>
+            </div>
+            <div class="stat-card">
+                <h3>Total Bikes</h3>
+                <p><%= totalBikes %></p>
+            </div>
+            <div class="stat-card">
+                <h3>Total Orders</h3>
+                <p><%= totalOrders %></p>
+            </div>
+            <div class="stat-card">
+                <h3>Pending Orders</h3>
+                <p><%= pendingOrders %></p>
+            </div>
+        </div>
+
+        <hr>
+
+        <h3>Admin Actions:</h3>
+        <div class="admin-actions">
+            <a href="/bikes/add" class="btn">Add New Bike</a>
+            <a href="/admin/users" class="btn">Manage Users</a>
+            <a href="/admin/orders" class="btn">Manage Orders</a>
+            <a href="/bikes" class="btn">View All Bikes</a>
+        </div>
+    </main>
+    <%- include('../partials/footer') %>
+</body>
+</html>
