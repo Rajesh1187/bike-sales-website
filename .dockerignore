@@ -1,0 +1,25 @@
+# Node.js specific ignores
+node_modules
+npm-debug.log
+yarn-error.log
+.env # Crucial: Never commit sensitive environment variables into your image
+
+# Version control ignores
+.git
+.gitignore
+
+# IDE and editor specific files
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Build artifacts and logs
+build/
+dist/
+tmp/
+logs/
+*.log
+
+# Docker specific files
+Dockerfile
+.dockerignore
